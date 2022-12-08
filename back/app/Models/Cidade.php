@@ -15,5 +15,8 @@ class Cidade extends Model
         'pais',
     ];
 
-    
+    public function grupo()
+    {
+        return $this->belongsTo(Grupo::class);
+    }
 }

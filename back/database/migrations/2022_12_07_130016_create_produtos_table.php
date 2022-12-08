@@ -18,7 +18,9 @@ class CreateProdutosTable extends Migration
             $table->string('nome');
             $table->string('descricao');
             $table->float('preco');
+            
             $table->timestamps();
+
         });
     }
 

@@ -16,5 +16,9 @@ class Produto extends Model
         'preco',
         
     ];
+    public function campanhas()
+    {
+       return $this->belongsToMany(Campanha::class);
+    }
 
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCampanhasTable extends Migration
+class CreateGruposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateCampanhasTable extends Migration
      */
     public function up()
     {
-        Schema::create('campanhas', function (Blueprint $table) {
+        Schema::create('grupos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('descricao');
-            $table->unsignedInteger('grupo_id');
-            $table->timestamps();
             
-            $table->foreign('grupo_id')->references('id')->on('grupos')->onUpdate('cascade')->onDelete('cascade');
+           
+            $table->timestamps();
+
+            
         });
     }
 
@@ -31,6 +31,6 @@ class CreateCampanhasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('campanhas');
+        Schema::dropIfExists('grupos');
     }
 }

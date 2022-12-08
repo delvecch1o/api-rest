@@ -18,7 +18,12 @@ class CreateCidadesTable extends Migration
             $table->string('municipio');
             $table->string('estado');
             $table->string('pais');
+
+            $table->unsignedInteger('grupo_id')->nullable()->default(null);
+          
             $table->timestamps();
+
+            $table->foreign('grupo_id')->references('id')->on('grupos')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

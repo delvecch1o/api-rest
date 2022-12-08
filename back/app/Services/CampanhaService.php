@@ -3,12 +3,13 @@
 namespace App\Services;
 
 use App\Models\Campanha;
+use App\Models\Grupo;
 
 class CampanhaService
 {
-    public function createCampanha($nome, $descricao)
+    public function createCampanha(Grupo $grupo, $nome, $descricao)
     {
-        $campanha = Campanha::create([
+        $campanha = $grupo->campanhas()->create([
             'nome' => $nome,
             'descricao' => $descricao,
             

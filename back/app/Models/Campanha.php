@@ -14,5 +14,15 @@ class Campanha extends Model
         'descricao',
 
     ];
+
+    public function grupo()
+    {
+        return $this->belongsTo(Grupo::class);
+    }
+
+    public function produtos()
+    {
+        return $this->belongsToMany(Produto::class);
+    }
        
 }

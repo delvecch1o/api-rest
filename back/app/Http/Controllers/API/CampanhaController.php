@@ -5,6 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Services\CampanhaService;
 use App\Http\Requests\CampanhaRequest;
+use App\Models\Grupo;
+use App\Models\Campanha;
+use App\Models\Produto;
+use Illuminate\Http\Request;
 
 
 class CampanhaController extends Controller
@@ -16,9 +20,10 @@ class CampanhaController extends Controller
         $this->campanhaService = $campanhaService;
     }
     
-    public function cadastrarCampanha(CampanhaRequest $request)
+    public function cadastrarCampanha(CampanhaRequest $request, Grupo $grupo)
     {
         $data = $this->campanhaService->createCampanha(
+            $grupo,
             ...array_values(
                 $request->only([
                     'nome',
@@ -33,6 +38,23 @@ class CampanhaController extends Controller
                 'message' => 'Campanha cadastrada com Sucesso!'
             ]);
 
+    }
+    public function vincularProduto(Request $request, Campanha $campanha, Produto $produto)
+    {
+        $campanha->produtos()->attach($produto->id,['preco' => $request->input('preco')]);
+        return response()->json([
+            'status' => 200,
+            
+        ]);
+    }
+
+    public function desvincularProduto(Request $request, Campanha $campanha, Produto $produto)
+    {
+        $campanha->produtos()->detach($produto->id);
+        return response()->json([
+            'status' => 200,
+            
+        ]);
     }
     
 
