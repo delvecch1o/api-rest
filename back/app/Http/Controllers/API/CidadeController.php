@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Services\CidadeService;
 use App\Http\Requests\CidadeRequest;
+use App\Models\Cidade;
 
 
 class CidadeController extends Controller
@@ -17,9 +18,10 @@ class CidadeController extends Controller
    }
 
     
-    public function cadastrarCidade(CidadeRequest $request)
+    public function store(CidadeRequest $request, Cidade $cidade)
     {
-        $data = $this->cidadeService->createCidade(
+        $data = $this->cidadeService->createService(
+            $cidade,
             ...array_values(
                 $request->only([
                     'municipio',
@@ -28,35 +30,53 @@ class CidadeController extends Controller
                 ])
             )
         );
-            return response()->json([
-                'status' => 200,
-                'cidade' => $data['cidade'],
-                'message' => 'Cidade cadastrada com Sucesso!'
-            ]);
+        return response()->json([
+            'status' => 200,
+            'cidade' => $data['cidade'],
+            'message' => 'Cidade Cadastrada com Sucesso!'
+        ]);
 
     }
 
     
-    public function show($id)
+    public function show(Cidade $cidade)
     {
-        
+       $show = $this->cidadeService->showService($cidade);
+       
+       return response()->json([
+           'show' => $show
+       ]);
     }
 
    
-    public function edit($id)
+    public function update(CidadeRequest $request, Cidade $cidade)
     {
-        
-    }
+        $data = $this->cidadeService->updateService(
+            $cidade,
+             ...array_values(
+                $request->only([
+                    'municipio',
+                    'estado',
+                    'pais',
 
-    
-    public function update(Request $request, $id)
-    {
-        
-    }
+                ])
+            )
 
-    
-    public function destroy($id)
-    {
+        );
+        return response()->json([
+            'status' => 200,
+            'cidade' => $data['cidade'],
+            'message' => 'Cidade Atualizada com Sucesso!'
+        ]);
        
+    }
+
+    
+    public function destroy(Cidade $cidade)
+    {
+       $this->cidadeService->destroyService($cidade);
+       return response()->json([
+           'message' => "Cidade excluida com sucesso"
+       ]);
     }
 }
