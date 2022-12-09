@@ -22,6 +22,9 @@ Route::delete('/grupo/{grupo}', [GrupoController::class, 'destroy']);
 
 
 Route::post('/grupo/{grupo}/campanha', [CampanhaController::class, 'cadastrarCampanha']);
+Route::get('/campanha/show', [CampanhaController::class, 'show']);
+Route::put('/grupo/{grupo}/campanha/{campanha}', [CampanhaController::class, 'update']);
+Route::delete('/campanha/{campanha}', [CampanhaController::class, 'destroy']);
 
 Route::post('/campanha/{campanha}/vincular-produto/{produto}', [CampanhaController::class, 'vincularProduto']);
 

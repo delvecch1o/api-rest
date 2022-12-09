@@ -8,7 +8,6 @@ use App\Http\Requests\CampanhaRequest;
 use App\Models\Grupo;
 use App\Models\Campanha;
 use App\Models\Produto;
-//use Illuminate\Http\Request;
 use App\Http\Requests\VincularRequest;
 
 
@@ -40,49 +39,75 @@ class CampanhaController extends Controller
             ]);
 
     }
+   
+    public function show(Campanha $campanha)
+    {
+       $show = $this->campanhaService->showService($campanha) ;
+
+       return response()->json([
+           'show' => $show
+       ]);
+    }
+
+   
+   
+    public function update(CampanhaRequest $request, Grupo $grupo)
+    {
+        $data = $this->campanhaService->updateService(
+            $grupo,
+            ...array_values(
+                $request->only([
+                    'nome',
+                    'descricao',
+                ])
+            )
+        );
+        return response()->json([
+            'status' => 200,
+            'campanha' => $data['campanha'],
+            'message' => 'Campanha Atualizada  com Sucesso!'
+
+        ]);
+    }
+
+    
+    public function destroy(Campanha $campanha)
+    {
+        $this->campanhaService->destroyService($campanha);
+        return response()->json([
+            'message' => "Campanha excluida com Sucesso"
+        ]);
+    }
+
+
+
     public function vincularProduto(VincularRequest $request, Campanha $campanha, Produto $produto)
     {
-        $campanha->produtos()->attach($produto->id,['preco' => $request->input('preco')]);
+        $this->campanhaService->vincularService(
+            $campanha,$produto,
+            ...array_values(
+                $request->only([
+                    'preco',
+                ])
+            )
+        );
         return response()->json([
             'status' => 200,
             'produto-vinculado' => $campanha,
             'preco-original' => $produto['preco']
             
         ]);
+        
     }
 
     public function desvincularProduto(Campanha $campanha, Produto $produto)
     {
-        $campanha->produtos()->detach($produto->id);
-        return response()->json([
+       $this->campanhaService->desvincularService($campanha,$produto);
+        
+       return response()->json([
             'status' => 200,
             'message' => 'Produto desvinculado da campanha com Sucesso !'
             
         ]);
-    }
-    
-
-   
-    public function show($id)
-    {
-        
-    }
-
-   
-    public function edit($id)
-    {
-       
-    }
-
-   
-    public function update(Request $request, $id)
-    {
-        
-    }
-
-    
-    public function destroy($id)
-    {
-        
     }
 }
