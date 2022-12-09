@@ -15,6 +15,12 @@ Route::get('/cidade/show', [CidadeController::class, 'show']);
 Route::put('/cidade/update/{cidade}', [CidadeController::class, 'update']);
 Route::delete('/cidade/{cidade}', [CidadeController::class, 'destroy']);
 
+Route::post('/grupo', [GrupoController::class, 'store']);
+Route::get('/grupo/show', [GrupoController::class, 'show']);
+Route::put('/grupo/update/{grupo}', [GrupoController::class, 'update']);
+Route::delete('/grupo/{grupo}', [GrupoController::class, 'destroy']);
+
+
 Route::post('/grupo/{grupo}/campanha', [CampanhaController::class, 'cadastrarCampanha']);
 
 Route::post('/campanha/{campanha}/vincular-produto/{produto}', [CampanhaController::class, 'vincularProduto']);
@@ -22,7 +28,8 @@ Route::post('/campanha/{campanha}/vincular-produto/{produto}', [CampanhaControll
 Route::post('/campanha/{campanha}/desvincular-produto/{produto}', [CampanhaController::class, 'desvincularProduto']);
 
 Route::post('/produto', [ProdutoController::class, 'cadastrarProduto']);
-Route::post('/grupo', [GrupoController::class, 'cadastrarGrupo']);
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

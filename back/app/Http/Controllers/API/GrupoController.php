@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Services\GrupoService;
 use App\Http\Requests\GrupoRequest;
+use App\Models\Grupo;
 
 class GrupoController extends Controller
 {
@@ -16,9 +17,10 @@ class GrupoController extends Controller
     }
    
     
-    public function cadastrarGrupo(GrupoRequest $request)
+    public function store(GrupoRequest $request, Grupo $grupo)
     {
         $data = $this->grupoService->createGrupo(
+            $grupo,
             ...array_values(
                 $request->only([
                     'nome',
@@ -34,26 +36,38 @@ class GrupoController extends Controller
     }
 
    
-    public function show($id)
+    public function show(Grupo $grupo)
     {
-       
+       $show = $this->grupoService->showService($grupo);
+       return response()->json([
+           'show' => $show
+       ]);
     }
 
     
-    public function edit($id)
+    public function update(GrupoRequest $request, Grupo $grupo)
     {
-        
-    }
-
-   
-    public function update(Request $request, $id)
-    {
-        
+        $data = $this->grupoService->updateService(
+            $grupo,
+            ...array_values(
+                $request->only([
+                    'nome',
+                ])
+            )
+        );
+        return response()->json([
+            'status' => 200,
+            'grupo' => $data['grupo'],
+            'message' => 'Grupo Atualizado com Sucesso'
+        ]);
     }
 
     
-    public function destroy($id)
+    public function destroy(Grupo $grupo)
     {
-       
+       $this->grupoService->destroyService($grupo);
+       return response()->json([
+           'message' => "Grupo excluido com sucesso"
+       ]);
     }
 }
