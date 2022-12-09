@@ -8,7 +8,8 @@ use App\Http\Requests\CampanhaRequest;
 use App\Models\Grupo;
 use App\Models\Campanha;
 use App\Models\Produto;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use App\Http\Requests\VincularRequest;
 
 
 class CampanhaController extends Controller
@@ -39,20 +40,23 @@ class CampanhaController extends Controller
             ]);
 
     }
-    public function vincularProduto(Request $request, Campanha $campanha, Produto $produto)
+    public function vincularProduto(VincularRequest $request, Campanha $campanha, Produto $produto)
     {
         $campanha->produtos()->attach($produto->id,['preco' => $request->input('preco')]);
         return response()->json([
             'status' => 200,
+            'produto-vinculado' => $campanha,
+            'preco-original' => $produto['preco']
             
         ]);
     }
 
-    public function desvincularProduto(Request $request, Campanha $campanha, Produto $produto)
+    public function desvincularProduto(Campanha $campanha, Produto $produto)
     {
         $campanha->produtos()->detach($produto->id);
         return response()->json([
             'status' => 200,
+            'message' => 'Produto desvinculado da campanha com Sucesso !'
             
         ]);
     }

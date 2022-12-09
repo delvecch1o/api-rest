@@ -10,15 +10,15 @@ use App\Http\Controllers\API\GrupoController;
 
 
 
-Route::post('/cadastrar', [CidadeController::class, 'cadastrarCidade']);
-Route::post('/grupo/{grupo}/cadastrarCampanha', [CampanhaController::class, 'cadastrarCampanha']);
+Route::post('/cidade', [CidadeController::class, 'cadastrarCidade']);
+Route::post('/grupo/{grupo}/campanha', [CampanhaController::class, 'cadastrarCampanha']);
 
 Route::post('/campanha/{campanha}/vincular-produto/{produto}', [CampanhaController::class, 'vincularProduto']);
 
 Route::post('/campanha/{campanha}/desvincular-produto/{produto}', [CampanhaController::class, 'desvincularProduto']);
 
-Route::post('/cadastrarProduto', [ProdutoController::class, 'cadastrarProduto']);
-Route::post('/cadastrarGrupo', [GrupoController::class, 'cadastrarGrupo']);
+Route::post('/produto', [ProdutoController::class, 'cadastrarProduto']);
+Route::post('/grupo', [GrupoController::class, 'cadastrarGrupo']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
