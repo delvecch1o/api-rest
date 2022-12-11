@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Services\ProdutoService;
 use App\Http\Requests\ProdutoRequest;
+use App\Models\Produto;
 
 class ProdutoController extends Controller
 {
@@ -15,9 +16,10 @@ class ProdutoController extends Controller
         $this->produtoService = $produtoService;
     }
     
-    public function cadastrarProduto(ProdutoRequest $request)
+    public function cadastrarProduto(ProdutoRequest $request, Produto $produto)
     {
         $data = $this->produtoService->createProduto(
+            $produto,
             ...array_values(
                 $request->only([
                     'nome',
@@ -36,26 +38,44 @@ class ProdutoController extends Controller
     }
 
    
-    public function show($id)
+    public function show(Produto $produto)
     {
-        
+        $show = $this->produtoService->showService($produto);
+        return response()->json([
+            'show' => $show
+        ]);
     }
 
     
-    public function edit($id)
+    public function update(ProdutoRequest $request, Produto $produto)
     {
-       
+        $data = $this->produtoService->updateService(
+            $produto,
+            ...array_values(
+                $request->only([
+                    'nome',
+                    'descricao',
+                    'preco',
+
+                ])
+            )
+        );
+        return response()->json([
+            'status' => 200,
+            'produto' => $data['produto'],
+            'message' => 'Produto Atualizado com Sucesso!'
+        ]);
+
+
     }
 
     
-    public function update(Request $request, $id)
+    public function destroy(Produto $produto)
     {
-        
-    }
-
-    
-    public function destroy($id)
-    {
+        $this->produtoService->destroyService($produto);
+        return response()->json([
+            'message' => 'Produto excluido com Sucesso'
+        ]);
         
     }
 }

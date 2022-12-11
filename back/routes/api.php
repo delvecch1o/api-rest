@@ -8,8 +8,6 @@ use App\Http\Controllers\API\ProdutoController;
 use App\Http\Controllers\API\GrupoController;
 
 
-
-
 Route::post('/cidade', [CidadeController::class, 'store']);
 Route::get('/cidade/show', [CidadeController::class, 'show']);
 Route::put('/cidade/update/{cidade}', [CidadeController::class, 'update']);
@@ -27,10 +25,12 @@ Route::put('/grupo/{grupo}/campanha/{campanha}', [CampanhaController::class, 'up
 Route::delete('/campanha/{campanha}', [CampanhaController::class, 'destroy']);
 
 Route::post('/campanha/{campanha}/vincular-produto/{produto}', [CampanhaController::class, 'vincularProduto']);
-
 Route::post('/campanha/{campanha}/desvincular-produto/{produto}', [CampanhaController::class, 'desvincularProduto']);
 
 Route::post('/produto', [ProdutoController::class, 'cadastrarProduto']);
+Route::get('/produto/show', [ProdutoController::class, 'show']);
+Route::put('/produto/update/{produto}', [ProdutoController::class, 'update']);
+Route::delete('/produto/{produto}', [ProdutoController::class, 'destroy']);
 
 
 
