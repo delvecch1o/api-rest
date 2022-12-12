@@ -18,10 +18,9 @@ class GrupoController extends Controller
     }
    
     
-    public function store(GrupoRequest $request, Grupo $grupo)
+    public function store(GrupoRequest $request)
     {
         $data = $this->grupoService->createGrupo(
-            $grupo,
             ...array_values(
                 $request->only([
                     'nome',

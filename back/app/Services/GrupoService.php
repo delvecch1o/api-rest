@@ -7,9 +7,9 @@ use App\Models\Campanha;
 
 class GrupoService
 {
-    public function createGrupo(Grupo $grupo,$nome)
+    public function createGrupo($nome)
     {
-        $grupo->create([
+        $grupo = Grupo::create([
             'nome' => $nome           
         ]);
         return [
