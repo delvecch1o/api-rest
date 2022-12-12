@@ -16,10 +16,9 @@ class ProdutoController extends Controller
         $this->produtoService = $produtoService;
     }
     
-    public function cadastrarProduto(ProdutoRequest $request, Produto $produto)
+    public function cadastrarProduto(ProdutoRequest $request)
     {
         $data = $this->produtoService->createProduto(
-            $produto,
             ...array_values(
                 $request->only([
                     'nome',

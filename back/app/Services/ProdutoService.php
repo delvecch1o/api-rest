@@ -6,9 +6,9 @@ use App\Models\Produto;
 
 class ProdutoService
 {
-    public function createProduto(Produto $produto, $nome, $descricao, $preco)
+    public function createProduto($nome, $descricao, $preco)
     {
-        $produto->create([
+        $produto = Produto::create([
             'nome' => $nome,
             'descricao' => $descricao,
             'preco' => $preco,
