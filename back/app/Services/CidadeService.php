@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Cidade;
+use App\Models\Grupo;
 
 class CidadeService
 {
@@ -44,6 +45,25 @@ class CidadeService
     public function destroyService(Cidade $cidade)
     {
         $cidade->delete();
+    }
+
+    public function vincularService(Cidade $cidade, Grupo $grupo)
+    {
+        $cidade->grupo()->associate($grupo);
+        $cidade->save();
+        return [
+            'cidade' => $cidade
+        ];
+
+    }
+
+    public function desvincularService(Cidade $cidade)
+    {
+        $cidade->grupo()->dissociate();
+        $cidade->save();
+        return [
+            'cidade' => $cidade
+        ];
     }
     
 }

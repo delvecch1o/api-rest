@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\CidadeService;
 use App\Http\Requests\CidadeRequest;
 use App\Models\Cidade;
+use App\Models\Grupo;
 
 
 class CidadeController extends Controller
@@ -78,5 +79,22 @@ class CidadeController extends Controller
        return response()->json([
            'message' => "Cidade excluida com sucesso"
        ]);
+    }
+
+    public function vincularGrupo(Cidade $cidade, Grupo $grupo)
+    {
+        $this->cidadeService->vincularService($cidade, $grupo);
+
+        return response()->json([
+            'message' => 'Cidade associada a um grupo com Sucesso'
+        ]);
+    }
+
+    public function desvincularGrupo(Cidade $cidade)
+    {
+        $this->cidadeService->desvincularService($cidade);
+        return response()->json([
+            'message' => 'Cidade dessassociada com sucesso'
+        ]);
     }
 }

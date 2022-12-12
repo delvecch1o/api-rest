@@ -9,6 +9,8 @@ use App\Http\Controllers\API\GrupoController;
 
 
 Route::post('/cidade', [CidadeController::class, 'store']);
+Route::post('/cidade/{cidade}/vincular-grupo/{grupo}', [CidadeController::class, 'vincularGrupo']);
+Route::post('/cidade/{cidade}/desvincular-cidade', [CidadeController::class, 'desvincularGrupo']);
 Route::get('/cidade/show', [CidadeController::class, 'show']);
 Route::put('/cidade/update/{cidade}', [CidadeController::class, 'update']);
 Route::delete('/cidade/{cidade}', [CidadeController::class, 'destroy']);
