@@ -7,9 +7,9 @@ use App\Models\Grupo;
 
 class CidadeService
 {
-    public function createService(Cidade $cidade, $municipio, $estado, $pais)
+    public function createService($municipio, $estado, $pais)
     {
-        $cidade->create([
+        $cidade = Cidade::create([
             'municipio' => $municipio,
             'estado' => $estado,
             'pais' => $pais

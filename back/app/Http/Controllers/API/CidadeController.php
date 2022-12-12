@@ -19,10 +19,9 @@ class CidadeController extends Controller
    }
 
     
-    public function store(CidadeRequest $request, Cidade $cidade)
+    public function store(CidadeRequest $request)
     {
         $data = $this->cidadeService->createService(
-            $cidade,
             ...array_values(
                 $request->only([
                     'municipio',
