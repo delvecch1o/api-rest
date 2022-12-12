@@ -14,6 +14,8 @@ Route::put('/cidade/update/{cidade}', [CidadeController::class, 'update']);
 Route::delete('/cidade/{cidade}', [CidadeController::class, 'destroy']);
 
 Route::post('/grupo', [GrupoController::class, 'store']);
+Route::post('/grupo/{grupo}/vincular-campanha/{campanha}', [GrupoController::class, 'vincularCampanha']);
+Route::post('/grupo/{grupo}/desvincular-campanha', [GrupoController::class, 'desvincularCampanha']);
 Route::get('/grupo/show', [GrupoController::class, 'show']);
 Route::put('/grupo/update/{grupo}', [GrupoController::class, 'update']);
 Route::delete('/grupo/{grupo}', [GrupoController::class, 'destroy']);

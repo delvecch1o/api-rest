@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Grupo;
+use App\Models\Campanha;
 
 class GrupoService
 {
@@ -37,6 +38,24 @@ class GrupoService
     public function destroyService(Grupo $grupo)
     {
         $grupo->delete();
+    }
+
+    public function vincularService(Grupo $grupo, Campanha $campanha)
+    {
+        $grupo->campanha_ativa()->associate($campanha);
+        $grupo->save();
+        return [
+            'grupo' => $grupo
+        ];
+    }
+
+    public function desvincularService(Grupo $grupo)
+    {
+        $grupo->campanha_ativa()->dissociate();
+        $grupo->save();
+        return [
+            'grupo' => $grupo
+        ];
     }
     
 }

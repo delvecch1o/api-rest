@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\GrupoService;
 use App\Http\Requests\GrupoRequest;
 use App\Models\Grupo;
+use App\Models\Campanha;
 
 class GrupoController extends Controller
 {
@@ -69,5 +70,23 @@ class GrupoController extends Controller
        return response()->json([
            'message' => "Grupo excluido com sucesso"
        ]);
+    }
+
+    public function vincularCampanha(Grupo $grupo, Campanha $campanha)
+    {
+       $this->grupoService->vincularService($grupo, $campanha);
+       
+       return response()->json([
+           'message' => 'Campanha associada com sucesso'
+       ]);
+    }
+    
+    public function desvincularCampanha(Grupo $grupo)
+    {
+        $this->grupoService->desvincularService($grupo);
+        
+        return response()->json([
+            'message' => 'Campanha desassociada com sucesso'
+        ]);
     }
 }
