@@ -1,9 +1,8 @@
-SAIL_PATH=./back/vendor/bin/sail
-
 .PHONY: init
 init:
-	cp back/.env.example back/.env
+	cp .env.example .env
 	docker compose up -d
+	sleep 20
 	docker exec -it api-rest-back-1 php artisan migrate --seed
 
 .PHONY: install
