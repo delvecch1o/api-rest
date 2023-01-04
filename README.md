@@ -2,7 +2,6 @@
 
 Desafio Proposto.
 
-Desafio Proposto.
 
 ● Montar uma api RESTful com laravel com as seguintes funções:
 
